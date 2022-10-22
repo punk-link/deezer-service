@@ -1,20 +1,20 @@
-package deezerservice
+package services
 
 import (
-	platformServices "main/services/platforms/base"
 	"net/http"
 
+	httpclient "github.com/punk-link/http-client"
 	"github.com/punk-link/logger"
 )
 
-func makeRequest[T any](logger *logger.Logger, method string, url string, result *T) error {
+func makeRequest[T any](logger logger.Logger, httpClientConfig httpclient.HttpClientConfig, method string, url string, result *T) error {
 	request, err := getRequest(method, url)
 	if err != nil {
 		logger.LogWarn("can't build an http request: %s", err.Error())
 		return err
 	}
 
-	return platformServices.MakeRequest(logger, request, result)
+	return httpclient.MakeRequest(&httpClientConfig, request, result)
 }
 
 func getRequest(method string, url string) (*http.Request, error) {
