@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: registry.punk.link/service-api
+  repository: registry.punk.link/service-ds
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -40,29 +40,29 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   className: ""
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     kubernetes.io/ingress.class: nginx
     ingress.kubernetes.io/force-ssl-redirect: "true" 
   hosts:
-    - host: api.punk.link
+    - host: ds.punk.link
       paths:
         - path: /
           pathType: Prefix
   tls:
-   - secretName: api-tls
+   - secretName: ds-tls
      hosts:
-       - api.punk.link
+       - ds.punk.link
 
 resources:
   limits:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 50m
+    memory: 56i
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 50m
+    memory: 56Mi
 
 autoscaling:
   enabled: false
