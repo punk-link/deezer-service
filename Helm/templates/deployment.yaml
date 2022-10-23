@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "punk-link-api.fullname" . }}
+  name: {{ include "punk-link-ds.fullname" . }}
   labels:
-    {{- include "punk-link-api.labels" . | nindent 4 }}
+    {{- include "punk-link-ds.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "punk-link-api.selectorLabels" . | nindent 6 }}
+      {{- include "punk-link-ds.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "punk-link-api.selectorLabels" . | nindent 8 }}
+        {{- include "punk-link-ds.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "punk-link-api.serviceAccountName" . }}
+      serviceAccountName: {{ include "punk-link-ds.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -37,16 +37,7 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: http
-            initialDelaySeconds: 30
-            periodSeconds: 40
+
           envFrom:
             - configMapRef:
                 name: {{ .Chart.Name }}-env

@@ -4,7 +4,7 @@ name: Build
 
 trigger:
   branch:
-    - master
+    - main
   event:
     include:
       - push
@@ -53,7 +53,7 @@ steps:
   settings:
     mode: upgrade
     chart: ./Helm/
-    release: api-dev
+    release: ds-dev
     values_files: ["Helm/values_dev.yaml"]
     namespace: dev
     skip_tls_verify: true
