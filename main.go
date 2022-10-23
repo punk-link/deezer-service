@@ -1,8 +1,13 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"main/services"
+	"os"
+	"os/signal"
+	"sync"
+	"syscall"
 
 	"github.com/nats-io/nats.go"
 	consulClient "github.com/punk-link/consul-client"
@@ -31,9 +36,22 @@ func main() {
 		logger.LogError(err, err.Error())
 	}
 
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer stop()
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+
 	deezerService := services.NewDeezerService(logger, *httpclient.DefaultConfig(logger))
 	queueProcessingService := platformContracts.NewQueueProcessingService(logger, natsConnection)
-	queueProcessingService.Process(deezerService)
+
+	logger.LogInfo("Processing url requests...")
+	go queueProcessingService.Process(ctx, &wg, deezerService)
+
+	wg.Wait()
+	logger.LogInfo("Exiting...")
 }
 
 func getConsulClient(storageName string, environmentName string) (*consulClient.ConsulClient, error) {
