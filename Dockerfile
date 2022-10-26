@@ -18,8 +18,7 @@ ENV PNKL_CONSUL_TOKEN=$PNKL_CONSUL_TOKEN
 ENV GO_ENVIRONMENT=$GO_ENVIRONMENT
 ENV LOG_LEVEL=$LOG_LEVEL
 
-RUN apk update && \
-    apk add --no-cache curl
+RUN apk update
 WORKDIR /
 COPY --from=builder /bin .
 EXPOSE 8080

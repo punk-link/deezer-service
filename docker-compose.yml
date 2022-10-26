@@ -6,9 +6,3 @@ services:
     ports: 
       - 8080:8080
     image: registry.punk.link/deezer-service:latest
-    healthcheck:
-      test: ["cmd", "deezer-service.exe"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 20s
