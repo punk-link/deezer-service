@@ -79,7 +79,7 @@ affinity: {}
 
 env:
   GO_ENVIRONMENT: "Development"
-  LOG_LEVEL: "Warn"
+  LOG_LEVEL: "Info"
 
 
   
