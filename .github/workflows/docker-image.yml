@@ -29,5 +29,5 @@ jobs:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: 'registry.punk.link/deezer-service:latest'
+          tags: 'registry.punk.link/spotify-service:latest'
 
