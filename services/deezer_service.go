@@ -11,11 +11,11 @@ import (
 )
 
 type DeezerService struct {
-	httpClientConfig httpclient.HttpClientConfig
+	httpClientConfig *httpclient.HttpClientConfig
 	logger           logger.Logger
 }
 
-func NewDeezerService(logger logger.Logger, httpClientConfig httpclient.HttpClientConfig) *DeezerService {
+func NewDeezerService(logger logger.Logger, httpClientConfig *httpclient.HttpClientConfig) *DeezerService {
 	return &DeezerService{
 		httpClientConfig: httpClientConfig,
 		logger:           logger,
