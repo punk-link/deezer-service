@@ -334,6 +334,8 @@ github.com/punk-link/logger v1.0.4 h1:9MJn/blHC4H2pYWJQhULPoBG5ZBeDKD6XWPchLI4lP
 github.com/punk-link/logger v1.0.4/go.mod h1:VQqr9BVmgekOzKvV2QBSO5cqoyyvJ6kNalaxPPfpxyg=
 github.com/punk-link/platform-contracts v1.0.7 h1:wV6vBMoBYNNEfL4WFxpCUTROMxSQxJZVRSp3aVufVhs=
 github.com/punk-link/platform-contracts v1.0.7/go.mod h1:o/eF03OndK/uoKwxCIBS6JJwNF2vvYUNzRias2vq/Sg=
+github.com/punk-link/streaming-platform-runtime v1.0.0 h1:H90a6GACWRoyKSFuafkE30W5LIaipigZgH3CYPgl5tY=
+github.com/punk-link/streaming-platform-runtime v1.0.0/go.mod h1:nkYt8aN8A7eX5uLzCeQ/XWb/Itmtqm2jU2r4Ol6HP6w=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
 github.com/rogpeppe/go-internal v1.8.0 h1:FCbCCtXNOY3UtUuHUYaghJg4y7Fd14rXifAYUAtL9R8=

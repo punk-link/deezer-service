@@ -17,10 +17,11 @@ func main() {
 	logger.LogInfo("%s is running as '%s'", SERVICE_NAME, environmentName)
 
 	serviceOptions := runtime.NewServiceOptions(logger, environmentName, SERVICE_NAME)
-	startup.RunServer(serviceOptions)
 
 	deezerService := services.NewDeezerService(logger, httpclient.DefaultConfig(logger))
-	startup.ProcessUrls(serviceOptions, deezerService)
+	go startup.ProcessUrls(serviceOptions, deezerService)
+
+	startup.RunServer(serviceOptions)
 }
 
 const SERVICE_NAME = "deezer-service"
