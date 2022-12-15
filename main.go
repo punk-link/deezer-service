@@ -6,6 +6,7 @@ import (
 	httpclient "github.com/punk-link/http-client"
 	"github.com/punk-link/logger"
 
+	envManager "github.com/punk-link/environment-variable-manager"
 	runtime "github.com/punk-link/streaming-platform-runtime"
 	common "github.com/punk-link/streaming-platform-runtime/common"
 	"github.com/punk-link/streaming-platform-runtime/startup"
@@ -13,10 +14,12 @@ import (
 
 func main() {
 	logger := logger.New()
-	environmentName := common.GetEnvironmentName()
+	envManager := envManager.New()
+
+	environmentName := common.GetEnvironmentName(envManager)
 	logger.LogInfo("%s is running as '%s'", SERVICE_NAME, environmentName)
 
-	serviceOptions := runtime.NewServiceOptions(logger, environmentName, SERVICE_NAME)
+	serviceOptions := runtime.NewServiceOptions(logger, envManager, environmentName, SERVICE_NAME)
 
 	deezerService := services.NewDeezerService(logger, httpclient.DefaultConfig(logger))
 	go startup.ProcessUrls(serviceOptions, deezerService)
