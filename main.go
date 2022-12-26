@@ -19,7 +19,8 @@ func main() {
 	environmentName := common.GetEnvironmentName(envManager)
 	logger.LogInfo("%s is running as '%s'", SERVICE_NAME, environmentName)
 
-	serviceOptions := runtime.NewServiceOptions(logger, envManager, environmentName, SERVICE_NAME)
+	appSecrets := common.GetAppSecrets(envManager, logger, SECRET_ENGINE_NAME, SERVICE_NAME)
+	serviceOptions := runtime.NewServiceOptions(logger, appSecrets, environmentName, SERVICE_NAME)
 
 	deezerService := services.NewDeezerService(logger, httpclient.DefaultConfig(logger))
 	go startup.ProcessUrls(serviceOptions, deezerService)
@@ -27,4 +28,5 @@ func main() {
 	startup.RunServer(serviceOptions)
 }
 
+const SECRET_ENGINE_NAME = "secrets"
 const SERVICE_NAME = "deezer-service"
